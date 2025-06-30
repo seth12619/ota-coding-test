@@ -1,0 +1,19 @@
+<%= form_with url: add_item_cart_path(@cart), method: :post, local: true do |f| %>
+  <div>
+    <label for="product_id">Product</label>
+    <select name="product_id" id="product_id">
+      <% @products.each do |product| %>
+        <option value="<%= product.id %>"><%= product.code %> - <%= product.name %> (€<%= product.price %>)</option>
+      <% end %>
+    </select>
+  </div>
+  <div>
+    <label for="quantity">Quantity</label>
+    <input type="number" name="quantity" id="quantity" value="1" min="1">
+  </div>
+  <div>
+    <button type="submit">Add to Cart</button>
+  </div>
+<% end %>
+
+<%= render 'summary', cart: @cart %>

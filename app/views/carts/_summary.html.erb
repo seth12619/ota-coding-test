@@ -1,0 +1,29 @@
+<h2>Cart Summary</h2>
+<table class="cart-summary">
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Name</th>
+      <th>Unit Price</th>
+      <th>Quantity</th>
+      <th>Subtotal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @items.each do |item| %>
+      <tr>
+        <td><%= item.code %></td>
+        <td><%= item.name %></td>
+        <td>€<%= item.price %></td>
+        <td><%= item.quantity %></td>
+        <td>€<%= item.total_price.round(2) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="4"><strong>Total</strong></td>
+      <td><strong>€<%= @total.round(2) %></strong></td>
+    </tr>
+  </tfoot>
+</table>

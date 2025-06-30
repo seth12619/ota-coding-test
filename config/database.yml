@@ -1,0 +1,32 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: user
+  password: password
+  host: localhost
+
+development:
+  <<: *default
+  database: amenitzota_development
+
+test:
+  <<: *default
+  database: amenitzota_test
+
+production:
+  primary:
+    <<: *default
+    database: amenitzota_production
+  cache:
+    <<: *default
+    database: amenitzota_production_cache
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *default
+    database: amenitzota_production_queue
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *default
+    database: amenitzota_production_cable
+    migrations_paths: db/cable_migrate
