@@ -1,4 +1,4 @@
-# Amenitiz OTA Coding Challenge
+# OTA Coding Challenge
 
 ## Requirements
 
