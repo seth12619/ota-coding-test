@@ -1,0 +1,1116 @@
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public[0m
+  [1m[35m (48.1ms)[0m  [1m[35mDROP DATABASE IF EXISTS "amenitzota_test"[0m
+  [1m[35m (31.6ms)[0m  [1m[35mCREATE DATABASE "amenitzota_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (11.0ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql" SCHEMA pg_catalog[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "cart_items" CASCADE[0m
+  [1m[35m (5.8ms)[0m  [1m[35mCREATE TABLE "cart_items" ("id" bigserial primary key, "cart_id" bigint NOT NULL, "product_id" bigint NOT NULL, "quantity" integer DEFAULT 1 NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (5.1ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_cart_id" ON "cart_items" ("cart_id")[0m
+  [1m[35m (4.8ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_product_id" ON "cart_items" ("product_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "carts" CASCADE[0m
+  [1m[35m (5.8ms)[0m  [1m[35mCREATE TABLE "carts" ("id" bigserial primary key, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "products" CASCADE[0m
+  [1m[35m (8.4ms)[0m  [1m[35mCREATE TABLE "products" ("id" bigserial primary key, "code" character varying NOT NULL, "name" character varying NOT NULL, "price" decimal(8,2) NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (4.9ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_products_on_code" ON "products" ("code")[0m
+  [1m[35m (2.1ms)[0m  [1m[35mALTER TABLE "cart_items" ADD CONSTRAINT "fk_rails_6cdb1f0139"
+FOREIGN KEY ("cart_id")
+  REFERENCES "carts" ("id")
+[0m
+  [1m[35m (2.1ms)[0m  [1m[35mALTER TABLE "cart_items" ADD CONSTRAINT "fk_rails_681a180e84"
+FOREIGN KEY ("product_id")
+  REFERENCES "products" ("id")
+[0m
+  [1m[35m (7.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (2.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20250628154307)[0m
+  [1m[35m (1.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20250628154251),
+(20250628154245);[0m
+  [1m[35m (8.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (1.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'test', '2025-06-28 16:36:39.383835', '2025-06-28 16:36:39.383837') RETURNING "key"[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::InternalMetadata Create (1.9ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', 'ca79a22b7c9385f304521024c35852885b6b7291', '2025-06-28 16:36:39.390917', '2025-06-28 16:36:39.390921') RETURNING "key"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public[0m
+  [1m[35m (48.0ms)[0m  [1m[35mDROP DATABASE IF EXISTS "amenitzota_test"[0m
+  [1m[35m (23.8ms)[0m  [1m[35mCREATE DATABASE "amenitzota_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (11.2ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql" SCHEMA pg_catalog[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "cart_items" CASCADE[0m
+  [1m[35m (6.0ms)[0m  [1m[35mCREATE TABLE "cart_items" ("id" bigserial primary key, "cart_id" bigint NOT NULL, "product_id" bigint NOT NULL, "quantity" integer DEFAULT 1 NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (4.4ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_cart_id" ON "cart_items" ("cart_id")[0m
+  [1m[35m (4.8ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_product_id" ON "cart_items" ("product_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "carts" CASCADE[0m
+  [1m[35m (7.6ms)[0m  [1m[35mCREATE TABLE "carts" ("id" bigserial primary key, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "products" CASCADE[0m
+  [1m[35m (8.6ms)[0m  [1m[35mCREATE TABLE "products" ("id" bigserial primary key, "code" character varying NOT NULL, "name" character varying NOT NULL, "price" decimal(8,2) NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (4.5ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_products_on_code" ON "products" ("code")[0m
+  [1m[35m (2.3ms)[0m  [1m[35mALTER TABLE "cart_items" ADD CONSTRAINT "fk_rails_6cdb1f0139"
+FOREIGN KEY ("cart_id")
+  REFERENCES "carts" ("id")
+[0m
+  [1m[35m (2.1ms)[0m  [1m[35mALTER TABLE "cart_items" ADD CONSTRAINT "fk_rails_681a180e84"
+FOREIGN KEY ("product_id")
+  REFERENCES "products" ("id")
+[0m
+  [1m[35m (9.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20250628154307)[0m
+  [1m[35m (1.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20250628154251),
+(20250628154245);[0m
+  [1m[35m (9.3ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (1.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'test', '2025-06-28 16:36:47.220616', '2025-06-28 16:36:47.220618') RETURNING "key"[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::InternalMetadata Create (1.9ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', 'ca79a22b7c9385f304521024c35852885b6b7291', '2025-06-28 16:36:47.226371', '2025-06-28 16:36:47.226373') RETURNING "key"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (2.4ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 16:41:27.512694"], ["updated_at", "2025-06-28 16:41:27.512694"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 16:41:27.581039"], ["updated_at", "2025-06-28 16:41:27.581039"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (1.6ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 16:41:27.912217"], ["updated_at", "2025-06-28 16:41:27.912217"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (1.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 16:41:27.923658"], ["updated_at", "2025-06-28 16:41:27.923658"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (2.4ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 16:41:27.930919"], ["updated_at", "2025-06-28 16:41:27.930919"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 16:41:27.936261"], ["updated_at", "2025-06-28 16:41:27.936261"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.8ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 16:41:27.939927"], ["updated_at", "2025-06-28 16:41:27.939927"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 16:41:27.953017"], ["updated_at", "2025-06-28 16:41:27.953017"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (1.0ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 16:41:28.143188"], ["updated_at", "2025-06-28 16:41:28.143188"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 16:41:28.159758"], ["updated_at", "2025-06-28 16:41:28.159758"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (1.9ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 5], ["product_id", 5], ["quantity", 2], ["created_at", "2025-06-28 16:41:28.176611"], ["updated_at", "2025-06-28 16:41:28.176611"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "SR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "SR1"], ["name", "strawberries"], ["price", "5.0"], ["created_at", "2025-06-28 16:41:28.181914"], ["updated_at", "2025-06-28 16:41:28.181914"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.9ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 5], ["product_id", 6], ["quantity", 1], ["created_at", "2025-06-28 16:41:28.183694"], ["updated_at", "2025-06-28 16:41:28.183694"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "CF1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "CF1"], ["name", "coffee"], ["price", "11.23"], ["created_at", "2025-06-28 16:41:28.187042"], ["updated_at", "2025-06-28 16:41:28.187042"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.7ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 5], ["product_id", 7], ["quantity", 1], ["created_at", "2025-06-28 16:41:28.188630"], ["updated_at", "2025-06-28 16:41:28.188630"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.3ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1[0m  [["cart_id", 5]]
+  [1m[36mProduct Load (0.5ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" IN ($1, $2, $3)[0m  [["id", 5], ["id", 6], ["id", 7]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.8ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 16:41:28.277138"], ["updated_at", "2025-06-28 16:41:28.277138"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 16:41:28.280812"], ["updated_at", "2025-06-28 16:41:28.280812"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.8ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 6], ["product_id", 8], ["quantity", 2], ["created_at", "2025-06-28 16:41:28.282775"], ["updated_at", "2025-06-28 16:41:28.282775"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "SR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "SR1"], ["name", "strawberries"], ["price", "5.0"], ["created_at", "2025-06-28 16:41:28.286344"], ["updated_at", "2025-06-28 16:41:28.286344"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.7ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 6], ["product_id", 9], ["quantity", 1], ["created_at", "2025-06-28 16:41:28.288298"], ["updated_at", "2025-06-28 16:41:28.288298"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "CF1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "CF1"], ["name", "coffee"], ["price", "11.23"], ["created_at", "2025-06-28 16:41:28.291875"], ["updated_at", "2025-06-28 16:41:28.291875"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.7ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 6], ["product_id", 10], ["quantity", 1], ["created_at", "2025-06-28 16:41:28.293558"], ["updated_at", "2025-06-28 16:41:28.293558"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.4ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1[0m  [["cart_id", 6]]
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" IN ($1, $2, $3)[0m  [["id", 8], ["id", 9], ["id", 10]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.6ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 16:41:28.322546"], ["updated_at", "2025-06-28 16:41:28.322546"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 16:41:28.325877"], ["updated_at", "2025-06-28 16:41:28.325877"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.6ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 7], ["product_id", 11], ["quantity", 2], ["created_at", "2025-06-28 16:41:28.327535"], ["updated_at", "2025-06-28 16:41:28.327535"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "SR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "SR1"], ["name", "strawberries"], ["price", "5.0"], ["created_at", "2025-06-28 16:41:28.330658"], ["updated_at", "2025-06-28 16:41:28.330658"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.9ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 7], ["product_id", 12], ["quantity", 1], ["created_at", "2025-06-28 16:41:28.332429"], ["updated_at", "2025-06-28 16:41:28.332429"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "CF1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "CF1"], ["name", "coffee"], ["price", "11.23"], ["created_at", "2025-06-28 16:41:28.337762"], ["updated_at", "2025-06-28 16:41:28.337762"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (1.3ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 7], ["product_id", 13], ["quantity", 1], ["created_at", "2025-06-28 16:41:28.339831"], ["updated_at", "2025-06-28 16:41:28.339831"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.3ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1 AND "cart_items"."product_id" = $2 LIMIT $3[0m  [["cart_id", 7], ["product_id", 12], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Update (0.7ms)[0m  [1m[33mUPDATE "cart_items" SET "quantity" = $1, "updated_at" = $2 WHERE "cart_items"."id" = $3[0m  [["quantity", 3], ["updated_at", "2025-06-28 16:41:28.343724"], ["id", 8]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1[0m  [["cart_id", 7]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" IN ($1, $2, $3)[0m  [["id", 11], ["id", 12], ["id", 13]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.7ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 16:41:28.349223"], ["updated_at", "2025-06-28 16:41:28.349223"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 16:41:28.352971"], ["updated_at", "2025-06-28 16:41:28.352971"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.8ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 8], ["product_id", 14], ["quantity", 2], ["created_at", "2025-06-28 16:41:28.354696"], ["updated_at", "2025-06-28 16:41:28.354696"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "SR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "SR1"], ["name", "strawberries"], ["price", "5.0"], ["created_at", "2025-06-28 16:41:28.358004"], ["updated_at", "2025-06-28 16:41:28.358004"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.8ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 8], ["product_id", 15], ["quantity", 1], ["created_at", "2025-06-28 16:41:28.359582"], ["updated_at", "2025-06-28 16:41:28.359582"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "CF1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "CF1"], ["name", "coffee"], ["price", "11.23"], ["created_at", "2025-06-28 16:41:28.363267"], ["updated_at", "2025-06-28 16:41:28.363267"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.8ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 8], ["product_id", 16], ["quantity", 1], ["created_at", "2025-06-28 16:41:28.365252"], ["updated_at", "2025-06-28 16:41:28.365252"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1 AND "cart_items"."product_id" = $2 LIMIT $3[0m  [["cart_id", 8], ["product_id", 16], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Update (1.0ms)[0m  [1m[33mUPDATE "cart_items" SET "quantity" = $1, "updated_at" = $2 WHERE "cart_items"."id" = $3[0m  [["quantity", 3], ["updated_at", "2025-06-28 16:41:28.368882"], ["id", 12]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.1ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1[0m  [["cart_id", 8]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" IN ($1, $2, $3)[0m  [["id", 14], ["id", 15], ["id", 16]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (1.0ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 16:41:28.376302"], ["updated_at", "2025-06-28 16:41:28.376302"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 16:41:28.381013"], ["updated_at", "2025-06-28 16:41:28.381013"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.8ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 9], ["product_id", 17], ["quantity", 2], ["created_at", "2025-06-28 16:41:28.383126"], ["updated_at", "2025-06-28 16:41:28.383126"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "SR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.1ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "SR1"], ["name", "strawberries"], ["price", "5.0"], ["created_at", "2025-06-28 16:41:28.386881"], ["updated_at", "2025-06-28 16:41:28.386881"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.8ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 9], ["product_id", 18], ["quantity", 1], ["created_at", "2025-06-28 16:41:28.388429"], ["updated_at", "2025-06-28 16:41:28.388429"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "CF1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "CF1"], ["name", "coffee"], ["price", "11.23"], ["created_at", "2025-06-28 16:41:28.392107"], ["updated_at", "2025-06-28 16:41:28.392107"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.8ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 9], ["product_id", 19], ["quantity", 1], ["created_at", "2025-06-28 16:41:28.394025"], ["updated_at", "2025-06-28 16:41:28.394025"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.1ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1 AND "cart_items"."product_id" = $2 LIMIT $3[0m  [["cart_id", 9], ["product_id", 18], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Update (0.9ms)[0m  [1m[33mUPDATE "cart_items" SET "quantity" = $1, "updated_at" = $2 WHERE "cart_items"."id" = $3[0m  [["quantity", 3], ["updated_at", "2025-06-28 16:41:28.397373"], ["id", 14]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.1ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1 AND "cart_items"."product_id" = $2 LIMIT $3[0m  [["cart_id", 9], ["product_id", 19], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Update (0.7ms)[0m  [1m[33mUPDATE "cart_items" SET "quantity" = $1, "updated_at" = $2 WHERE "cart_items"."id" = $3[0m  [["quantity", 3], ["updated_at", "2025-06-28 16:41:28.400665"], ["id", 15]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.1ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1[0m  [["cart_id", 9]]
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" IN ($1, $2, $3)[0m  [["id", 17], ["id", 18], ["id", 19]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.9ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 16:42:44.626282"], ["updated_at", "2025-06-28 16:42:44.626282"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 16:42:44.666584"], ["updated_at", "2025-06-28 16:42:44.666584"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (1.4ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 16:42:44.759690"], ["updated_at", "2025-06-28 16:42:44.759690"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 16:42:44.766949"], ["updated_at", "2025-06-28 16:42:44.766949"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.7ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 16:42:44.770975"], ["updated_at", "2025-06-28 16:42:44.770975"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 16:42:44.774123"], ["updated_at", "2025-06-28 16:42:44.774123"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.7ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 16:42:44.777441"], ["updated_at", "2025-06-28 16:42:44.777441"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.1ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 16:42:44.780585"], ["updated_at", "2025-06-28 16:42:44.780585"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.6ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 16:42:44.830204"], ["updated_at", "2025-06-28 16:42:44.830204"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 16:42:44.845373"], ["updated_at", "2025-06-28 16:42:44.845373"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.7ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 14], ["product_id", 24], ["quantity", 2], ["created_at", "2025-06-28 16:42:44.851226"], ["updated_at", "2025-06-28 16:42:44.851226"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "SR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.1ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "SR1"], ["name", "strawberries"], ["price", "5.0"], ["created_at", "2025-06-28 16:42:44.853881"], ["updated_at", "2025-06-28 16:42:44.853881"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.5ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 14], ["product_id", 25], ["quantity", 1], ["created_at", "2025-06-28 16:42:44.855034"], ["updated_at", "2025-06-28 16:42:44.855034"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "CF1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "CF1"], ["name", "coffee"], ["price", "11.23"], ["created_at", "2025-06-28 16:42:44.857386"], ["updated_at", "2025-06-28 16:42:44.857386"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.7ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 14], ["product_id", 26], ["quantity", 1], ["created_at", "2025-06-28 16:42:44.859084"], ["updated_at", "2025-06-28 16:42:44.859084"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.3ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1[0m  [["cart_id", 14]]
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" IN ($1, $2, $3)[0m  [["id", 24], ["id", 25], ["id", 26]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (1.2ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 16:42:44.881649"], ["updated_at", "2025-06-28 16:42:44.881649"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (1.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 16:42:44.893823"], ["updated_at", "2025-06-28 16:42:44.893823"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (1.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 15], ["product_id", 27], ["quantity", 2], ["created_at", "2025-06-28 16:42:44.896504"], ["updated_at", "2025-06-28 16:42:44.896504"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "SR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "SR1"], ["name", "strawberries"], ["price", "5.0"], ["created_at", "2025-06-28 16:42:44.901411"], ["updated_at", "2025-06-28 16:42:44.901411"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.6ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 15], ["product_id", 28], ["quantity", 1], ["created_at", "2025-06-28 16:42:44.903956"], ["updated_at", "2025-06-28 16:42:44.903956"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "CF1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.1ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "CF1"], ["name", "coffee"], ["price", "11.23"], ["created_at", "2025-06-28 16:42:44.906566"], ["updated_at", "2025-06-28 16:42:44.906566"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.6ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 15], ["product_id", 29], ["quantity", 1], ["created_at", "2025-06-28 16:42:44.907920"], ["updated_at", "2025-06-28 16:42:44.907920"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1[0m  [["cart_id", 15]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" IN ($1, $2, $3)[0m  [["id", 27], ["id", 28], ["id", 29]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.4ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 16:42:44.917705"], ["updated_at", "2025-06-28 16:42:44.917705"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.1ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 16:42:44.919679"], ["updated_at", "2025-06-28 16:42:44.919679"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.5ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 16], ["product_id", 30], ["quantity", 2], ["created_at", "2025-06-28 16:42:44.920927"], ["updated_at", "2025-06-28 16:42:44.920927"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "SR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "SR1"], ["name", "strawberries"], ["price", "5.0"], ["created_at", "2025-06-28 16:42:44.923032"], ["updated_at", "2025-06-28 16:42:44.923032"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.5ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 16], ["product_id", 31], ["quantity", 1], ["created_at", "2025-06-28 16:42:44.924189"], ["updated_at", "2025-06-28 16:42:44.924189"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "CF1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "CF1"], ["name", "coffee"], ["price", "11.23"], ["created_at", "2025-06-28 16:42:44.926403"], ["updated_at", "2025-06-28 16:42:44.926403"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.5ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 16], ["product_id", 32], ["quantity", 1], ["created_at", "2025-06-28 16:42:44.928787"], ["updated_at", "2025-06-28 16:42:44.928787"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1 AND "cart_items"."product_id" = $2 LIMIT $3[0m  [["cart_id", 16], ["product_id", 31], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Update (0.5ms)[0m  [1m[33mUPDATE "cart_items" SET "quantity" = $1, "updated_at" = $2 WHERE "cart_items"."id" = $3[0m  [["quantity", 3], ["updated_at", "2025-06-28 16:42:44.930930"], ["id", 23]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.1ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1[0m  [["cart_id", 16]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" IN ($1, $2, $3)[0m  [["id", 30], ["id", 31], ["id", 32]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.4ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 16:42:44.934768"], ["updated_at", "2025-06-28 16:42:44.934768"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.1ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 16:42:44.936719"], ["updated_at", "2025-06-28 16:42:44.936719"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.5ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 17], ["product_id", 33], ["quantity", 2], ["created_at", "2025-06-28 16:42:44.937830"], ["updated_at", "2025-06-28 16:42:44.937830"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "SR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "SR1"], ["name", "strawberries"], ["price", "5.0"], ["created_at", "2025-06-28 16:42:44.939912"], ["updated_at", "2025-06-28 16:42:44.939912"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.6ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 17], ["product_id", 34], ["quantity", 1], ["created_at", "2025-06-28 16:42:44.941075"], ["updated_at", "2025-06-28 16:42:44.941075"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "CF1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.1ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "CF1"], ["name", "coffee"], ["price", "11.23"], ["created_at", "2025-06-28 16:42:44.944455"], ["updated_at", "2025-06-28 16:42:44.944455"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.5ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 17], ["product_id", 35], ["quantity", 1], ["created_at", "2025-06-28 16:42:44.945648"], ["updated_at", "2025-06-28 16:42:44.945648"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.1ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1 AND "cart_items"."product_id" = $2 LIMIT $3[0m  [["cart_id", 17], ["product_id", 35], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Update (0.6ms)[0m  [1m[33mUPDATE "cart_items" SET "quantity" = $1, "updated_at" = $2 WHERE "cart_items"."id" = $3[0m  [["quantity", 3], ["updated_at", "2025-06-28 16:42:44.947785"], ["id", 27]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.1ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1[0m  [["cart_id", 17]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" IN ($1, $2, $3)[0m  [["id", 33], ["id", 34], ["id", 35]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.4ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 16:42:44.951789"], ["updated_at", "2025-06-28 16:42:44.951789"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 16:42:44.953662"], ["updated_at", "2025-06-28 16:42:44.953662"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.5ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 18], ["product_id", 36], ["quantity", 2], ["created_at", "2025-06-28 16:42:44.955027"], ["updated_at", "2025-06-28 16:42:44.955027"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "SR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.1ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "SR1"], ["name", "strawberries"], ["price", "5.0"], ["created_at", "2025-06-28 16:42:44.957065"], ["updated_at", "2025-06-28 16:42:44.957065"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (1.0ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 18], ["product_id", 37], ["quantity", 1], ["created_at", "2025-06-28 16:42:44.958019"], ["updated_at", "2025-06-28 16:42:44.958019"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (3.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "CF1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "CF1"], ["name", "coffee"], ["price", "11.23"], ["created_at", "2025-06-28 16:42:44.969384"], ["updated_at", "2025-06-28 16:42:44.969384"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.9ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 18], ["product_id", 38], ["quantity", 1], ["created_at", "2025-06-28 16:42:44.973966"], ["updated_at", "2025-06-28 16:42:44.973966"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1 AND "cart_items"."product_id" = $2 LIMIT $3[0m  [["cart_id", 18], ["product_id", 37], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Update (0.8ms)[0m  [1m[33mUPDATE "cart_items" SET "quantity" = $1, "updated_at" = $2 WHERE "cart_items"."id" = $3[0m  [["quantity", 3], ["updated_at", "2025-06-28 16:42:44.982633"], ["id", 29]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.1ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1 AND "cart_items"."product_id" = $2 LIMIT $3[0m  [["cart_id", 18], ["product_id", 38], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Update (0.6ms)[0m  [1m[33mUPDATE "cart_items" SET "quantity" = $1, "updated_at" = $2 WHERE "cart_items"."id" = $3[0m  [["quantity", 3], ["updated_at", "2025-06-28 16:42:44.986284"], ["id", 30]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.1ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1[0m  [["cart_id", 18]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" IN ($1, $2, $3)[0m  [["id", 36], ["id", 37], ["id", 38]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.8ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 16:43:26.350397"], ["updated_at", "2025-06-28 16:43:26.350397"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 16:43:26.417659"], ["updated_at", "2025-06-28 16:43:26.417659"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (2.1ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 16:43:26.492018"], ["updated_at", "2025-06-28 16:43:26.492018"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (3.1ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 16:43:26.504527"], ["updated_at", "2025-06-28 16:43:26.504527"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.8ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 16:43:26.511227"], ["updated_at", "2025-06-28 16:43:26.511227"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (1.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 16:43:26.519808"], ["updated_at", "2025-06-28 16:43:26.519808"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.4ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 16:43:26.522231"], ["updated_at", "2025-06-28 16:43:26.522231"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 16:43:26.524496"], ["updated_at", "2025-06-28 16:43:26.524496"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.5ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 16:43:26.527410"], ["updated_at", "2025-06-28 16:43:26.527410"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.1ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 16:43:26.535991"], ["updated_at", "2025-06-28 16:43:26.535991"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (1.1ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 23], ["product_id", 43], ["quantity", 2], ["created_at", "2025-06-28 16:43:26.541675"], ["updated_at", "2025-06-28 16:43:26.541675"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "SR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.1ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "SR1"], ["name", "strawberries"], ["price", "5.0"], ["created_at", "2025-06-28 16:43:26.545008"], ["updated_at", "2025-06-28 16:43:26.545008"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.6ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 23], ["product_id", 44], ["quantity", 1], ["created_at", "2025-06-28 16:43:26.546264"], ["updated_at", "2025-06-28 16:43:26.546264"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "CF1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.1ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "CF1"], ["name", "coffee"], ["price", "11.23"], ["created_at", "2025-06-28 16:43:26.548752"], ["updated_at", "2025-06-28 16:43:26.548752"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.6ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 23], ["product_id", 45], ["quantity", 1], ["created_at", "2025-06-28 16:43:26.549924"], ["updated_at", "2025-06-28 16:43:26.549924"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.4ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1[0m  [["cart_id", 23]]
+  [1m[36mProduct Load (0.6ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" IN ($1, $2, $3)[0m  [["id", 43], ["id", 44], ["id", 45]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (1.0ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 16:43:26.601196"], ["updated_at", "2025-06-28 16:43:26.601196"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 16:43:26.604455"], ["updated_at", "2025-06-28 16:43:26.604455"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.7ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 24], ["product_id", 46], ["quantity", 2], ["created_at", "2025-06-28 16:43:26.606091"], ["updated_at", "2025-06-28 16:43:26.606091"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "SR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "SR1"], ["name", "strawberries"], ["price", "5.0"], ["created_at", "2025-06-28 16:43:26.609539"], ["updated_at", "2025-06-28 16:43:26.609539"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.8ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 24], ["product_id", 47], ["quantity", 1], ["created_at", "2025-06-28 16:43:26.611152"], ["updated_at", "2025-06-28 16:43:26.611152"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "CF1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "CF1"], ["name", "coffee"], ["price", "11.23"], ["created_at", "2025-06-28 16:43:26.614922"], ["updated_at", "2025-06-28 16:43:26.614922"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.6ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 24], ["product_id", 48], ["quantity", 1], ["created_at", "2025-06-28 16:43:26.616406"], ["updated_at", "2025-06-28 16:43:26.616406"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.3ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1[0m  [["cart_id", 24]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" IN ($1, $2, $3)[0m  [["id", 46], ["id", 47], ["id", 48]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.9ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 16:43:26.638719"], ["updated_at", "2025-06-28 16:43:26.638719"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.1ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 16:43:26.641900"], ["updated_at", "2025-06-28 16:43:26.641900"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.6ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 25], ["product_id", 49], ["quantity", 2], ["created_at", "2025-06-28 16:43:26.643388"], ["updated_at", "2025-06-28 16:43:26.643388"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "SR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.1ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "SR1"], ["name", "strawberries"], ["price", "5.0"], ["created_at", "2025-06-28 16:43:26.647178"], ["updated_at", "2025-06-28 16:43:26.647178"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.6ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 25], ["product_id", 50], ["quantity", 1], ["created_at", "2025-06-28 16:43:26.648465"], ["updated_at", "2025-06-28 16:43:26.648465"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "CF1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.1ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "CF1"], ["name", "coffee"], ["price", "11.23"], ["created_at", "2025-06-28 16:43:26.651088"], ["updated_at", "2025-06-28 16:43:26.651088"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.6ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 25], ["product_id", 51], ["quantity", 1], ["created_at", "2025-06-28 16:43:26.652290"], ["updated_at", "2025-06-28 16:43:26.652290"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1 AND "cart_items"."product_id" = $2 LIMIT $3[0m  [["cart_id", 25], ["product_id", 50], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Update (0.7ms)[0m  [1m[33mUPDATE "cart_items" SET "quantity" = $1, "updated_at" = $2 WHERE "cart_items"."id" = $3[0m  [["quantity", 3], ["updated_at", "2025-06-28 16:43:26.655102"], ["id", 38]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1[0m  [["cart_id", 25]]
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" IN ($1, $2, $3)[0m  [["id", 49], ["id", 50], ["id", 51]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.5ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 16:43:26.659714"], ["updated_at", "2025-06-28 16:43:26.659714"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 16:43:26.662602"], ["updated_at", "2025-06-28 16:43:26.662602"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.6ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 26], ["product_id", 52], ["quantity", 2], ["created_at", "2025-06-28 16:43:26.664065"], ["updated_at", "2025-06-28 16:43:26.664065"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "SR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "SR1"], ["name", "strawberries"], ["price", "5.0"], ["created_at", "2025-06-28 16:43:26.666659"], ["updated_at", "2025-06-28 16:43:26.666659"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.5ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 26], ["product_id", 53], ["quantity", 1], ["created_at", "2025-06-28 16:43:26.667876"], ["updated_at", "2025-06-28 16:43:26.667876"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "CF1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.1ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "CF1"], ["name", "coffee"], ["price", "11.23"], ["created_at", "2025-06-28 16:43:26.670377"], ["updated_at", "2025-06-28 16:43:26.670377"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.5ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 26], ["product_id", 54], ["quantity", 1], ["created_at", "2025-06-28 16:43:26.671811"], ["updated_at", "2025-06-28 16:43:26.671811"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.1ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1 AND "cart_items"."product_id" = $2 LIMIT $3[0m  [["cart_id", 26], ["product_id", 54], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Update (0.5ms)[0m  [1m[33mUPDATE "cart_items" SET "quantity" = $1, "updated_at" = $2 WHERE "cart_items"."id" = $3[0m  [["quantity", 3], ["updated_at", "2025-06-28 16:43:26.673943"], ["id", 42]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.1ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1[0m  [["cart_id", 26]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" IN ($1, $2, $3)[0m  [["id", 52], ["id", 53], ["id", 54]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.5ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 16:43:26.678546"], ["updated_at", "2025-06-28 16:43:26.678546"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.1ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 16:43:26.681046"], ["updated_at", "2025-06-28 16:43:26.681046"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.6ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 27], ["product_id", 55], ["quantity", 2], ["created_at", "2025-06-28 16:43:26.682281"], ["updated_at", "2025-06-28 16:43:26.682281"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "SR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.1ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "SR1"], ["name", "strawberries"], ["price", "5.0"], ["created_at", "2025-06-28 16:43:26.684810"], ["updated_at", "2025-06-28 16:43:26.684810"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.8ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 27], ["product_id", 56], ["quantity", 1], ["created_at", "2025-06-28 16:43:26.685991"], ["updated_at", "2025-06-28 16:43:26.685991"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "CF1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "CF1"], ["name", "coffee"], ["price", "11.23"], ["created_at", "2025-06-28 16:43:26.688865"], ["updated_at", "2025-06-28 16:43:26.688865"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.6ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 27], ["product_id", 57], ["quantity", 1], ["created_at", "2025-06-28 16:43:26.691178"], ["updated_at", "2025-06-28 16:43:26.691178"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1 AND "cart_items"."product_id" = $2 LIMIT $3[0m  [["cart_id", 27], ["product_id", 56], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Update (5.0ms)[0m  [1m[33mUPDATE "cart_items" SET "quantity" = $1, "updated_at" = $2 WHERE "cart_items"."id" = $3[0m  [["quantity", 3], ["updated_at", "2025-06-28 16:43:26.696926"], ["id", 44]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.1ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1 AND "cart_items"."product_id" = $2 LIMIT $3[0m  [["cart_id", 27], ["product_id", 57], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Update (0.6ms)[0m  [1m[33mUPDATE "cart_items" SET "quantity" = $1, "updated_at" = $2 WHERE "cart_items"."id" = $3[0m  [["quantity", 3], ["updated_at", "2025-06-28 16:43:26.704421"], ["id", 45]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1[0m  [["cart_id", 27]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" IN ($1, $2, $3)[0m  [["id", 55], ["id", 56], ["id", 57]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public[0m
+  [1m[35m (204.2ms)[0m  [1m[35mDROP DATABASE IF EXISTS "amenitzota_test"[0m
+  [1m[35m (23.3ms)[0m  [1m[35mCREATE DATABASE "amenitzota_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (10.5ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql" SCHEMA pg_catalog[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "cart_items" CASCADE[0m
+  [1m[35m (5.6ms)[0m  [1m[35mCREATE TABLE "cart_items" ("id" bigserial primary key, "cart_id" bigint NOT NULL, "product_id" bigint NOT NULL, "quantity" integer DEFAULT 0 NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (4.7ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_cart_id" ON "cart_items" ("cart_id")[0m
+  [1m[35m (4.9ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_product_id" ON "cart_items" ("product_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "carts" CASCADE[0m
+  [1m[35m (4.8ms)[0m  [1m[35mCREATE TABLE "carts" ("id" bigserial primary key, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "products" CASCADE[0m
+  [1m[35m (8.7ms)[0m  [1m[35mCREATE TABLE "products" ("id" bigserial primary key, "code" character varying NOT NULL, "name" character varying NOT NULL, "price" decimal(8,2) NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (4.5ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_products_on_code" ON "products" ("code")[0m
+  [1m[35m (2.4ms)[0m  [1m[35mALTER TABLE "cart_items" ADD CONSTRAINT "fk_rails_6cdb1f0139"
+FOREIGN KEY ("cart_id")
+  REFERENCES "carts" ("id")
+[0m
+  [1m[35m (1.5ms)[0m  [1m[35mALTER TABLE "cart_items" ADD CONSTRAINT "fk_rails_681a180e84"
+FOREIGN KEY ("product_id")
+  REFERENCES "products" ("id")
+[0m
+  [1m[35m (8.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20250628154307)[0m
+  [1m[35m (2.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20250628154251),
+(20250628154245);[0m
+  [1m[35m (7.8ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (1.9ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'test', '2025-06-28 17:09:20.754574', '2025-06-28 17:09:20.754576') RETURNING "key"[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::InternalMetadata Create (1.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', 'a61de45d37fc7cbabc48d6f0fcf4f7b133418b57', '2025-06-28 17:09:20.762213', '2025-06-28 17:09:20.762214') RETURNING "key"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.9ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 17:09:20.915310"], ["updated_at", "2025-06-28 17:09:20.915310"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 17:09:20.975477"], ["updated_at", "2025-06-28 17:09:20.975477"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.8ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 17:09:21.061878"], ["updated_at", "2025-06-28 17:09:21.061878"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 17:09:21.065411"], ["updated_at", "2025-06-28 17:09:21.065411"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.6ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 17:09:21.068802"], ["updated_at", "2025-06-28 17:09:21.068802"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 17:09:21.071859"], ["updated_at", "2025-06-28 17:09:21.071859"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.6ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 17:09:21.074868"], ["updated_at", "2025-06-28 17:09:21.074868"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 17:09:21.078015"], ["updated_at", "2025-06-28 17:09:21.078015"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (9.3ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 17:09:21.081150"], ["updated_at", "2025-06-28 17:09:21.081150"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 17:09:21.126892"], ["updated_at", "2025-06-28 17:09:21.126892"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (1.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 5], ["product_id", 5], ["quantity", 2], ["created_at", "2025-06-28 17:09:21.136845"], ["updated_at", "2025-06-28 17:09:21.136845"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "SR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "SR1"], ["name", "strawberries"], ["price", "5.0"], ["created_at", "2025-06-28 17:09:21.141140"], ["updated_at", "2025-06-28 17:09:21.141140"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.7ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 5], ["product_id", 6], ["quantity", 1], ["created_at", "2025-06-28 17:09:21.142770"], ["updated_at", "2025-06-28 17:09:21.142770"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "CF1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.1ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "CF1"], ["name", "coffee"], ["price", "11.23"], ["created_at", "2025-06-28 17:09:21.145801"], ["updated_at", "2025-06-28 17:09:21.145801"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.6ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 5], ["product_id", 7], ["quantity", 1], ["created_at", "2025-06-28 17:09:21.147243"], ["updated_at", "2025-06-28 17:09:21.147243"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.3ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1[0m  [["cart_id", 5]]
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" IN ($1, $2, $3)[0m  [["id", 5], ["id", 6], ["id", 7]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (7.0ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 17:09:21.188632"], ["updated_at", "2025-06-28 17:09:21.188632"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (3.0ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 17:09:21.212593"], ["updated_at", "2025-06-28 17:09:21.212593"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (1.1ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 6], ["product_id", 8], ["quantity", 2], ["created_at", "2025-06-28 17:09:21.219157"], ["updated_at", "2025-06-28 17:09:21.219157"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "SR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "SR1"], ["name", "strawberries"], ["price", "5.0"], ["created_at", "2025-06-28 17:09:21.229784"], ["updated_at", "2025-06-28 17:09:21.229784"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (4.0ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 6], ["product_id", 9], ["quantity", 1], ["created_at", "2025-06-28 17:09:21.236231"], ["updated_at", "2025-06-28 17:09:21.236231"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "CF1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "CF1"], ["name", "coffee"], ["price", "11.23"], ["created_at", "2025-06-28 17:09:21.251530"], ["updated_at", "2025-06-28 17:09:21.251530"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (1.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 6], ["product_id", 10], ["quantity", 1], ["created_at", "2025-06-28 17:09:21.263074"], ["updated_at", "2025-06-28 17:09:21.263074"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.3ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1[0m  [["cart_id", 6]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" IN ($1, $2, $3)[0m  [["id", 8], ["id", 9], ["id", 10]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.7ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 17:09:21.325651"], ["updated_at", "2025-06-28 17:09:21.325651"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.1ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 17:09:21.328644"], ["updated_at", "2025-06-28 17:09:21.328644"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (1.1ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 7], ["product_id", 11], ["quantity", 2], ["created_at", "2025-06-28 17:09:21.330183"], ["updated_at", "2025-06-28 17:09:21.330183"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "SR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "SR1"], ["name", "strawberries"], ["price", "5.0"], ["created_at", "2025-06-28 17:09:21.334160"], ["updated_at", "2025-06-28 17:09:21.334160"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.6ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 7], ["product_id", 12], ["quantity", 1], ["created_at", "2025-06-28 17:09:21.335688"], ["updated_at", "2025-06-28 17:09:21.335688"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "CF1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.1ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "CF1"], ["name", "coffee"], ["price", "11.23"], ["created_at", "2025-06-28 17:09:21.338440"], ["updated_at", "2025-06-28 17:09:21.338440"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.9ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 7], ["product_id", 13], ["quantity", 1], ["created_at", "2025-06-28 17:09:21.339776"], ["updated_at", "2025-06-28 17:09:21.339776"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1 AND "cart_items"."product_id" = $2 LIMIT $3[0m  [["cart_id", 7], ["product_id", 12], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Update (0.8ms)[0m  [1m[33mUPDATE "cart_items" SET "quantity" = $1, "updated_at" = $2 WHERE "cart_items"."id" = $3[0m  [["quantity", 3], ["updated_at", "2025-06-28 17:09:21.342795"], ["id", 8]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1[0m  [["cart_id", 7]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" IN ($1, $2, $3)[0m  [["id", 11], ["id", 12], ["id", 13]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.8ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 17:09:21.348678"], ["updated_at", "2025-06-28 17:09:21.348678"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 17:09:21.352035"], ["updated_at", "2025-06-28 17:09:21.352035"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.8ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 8], ["product_id", 14], ["quantity", 2], ["created_at", "2025-06-28 17:09:21.353809"], ["updated_at", "2025-06-28 17:09:21.353809"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "SR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "SR1"], ["name", "strawberries"], ["price", "5.0"], ["created_at", "2025-06-28 17:09:21.357095"], ["updated_at", "2025-06-28 17:09:21.357095"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.6ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 8], ["product_id", 15], ["quantity", 1], ["created_at", "2025-06-28 17:09:21.358583"], ["updated_at", "2025-06-28 17:09:21.358583"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "CF1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.1ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "CF1"], ["name", "coffee"], ["price", "11.23"], ["created_at", "2025-06-28 17:09:21.361292"], ["updated_at", "2025-06-28 17:09:21.361292"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.6ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 8], ["product_id", 16], ["quantity", 1], ["created_at", "2025-06-28 17:09:21.362968"], ["updated_at", "2025-06-28 17:09:21.362968"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1 AND "cart_items"."product_id" = $2 LIMIT $3[0m  [["cart_id", 8], ["product_id", 16], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Update (0.7ms)[0m  [1m[33mUPDATE "cart_items" SET "quantity" = $1, "updated_at" = $2 WHERE "cart_items"."id" = $3[0m  [["quantity", 3], ["updated_at", "2025-06-28 17:09:21.368293"], ["id", 12]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1[0m  [["cart_id", 8]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" IN ($1, $2, $3)[0m  [["id", 14], ["id", 15], ["id", 16]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.6ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-28 17:09:21.373327"], ["updated_at", "2025-06-28 17:09:21.373327"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-28 17:09:21.376302"], ["updated_at", "2025-06-28 17:09:21.376302"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.9ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 9], ["product_id", 17], ["quantity", 2], ["created_at", "2025-06-28 17:09:21.377984"], ["updated_at", "2025-06-28 17:09:21.377984"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "SR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.1ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "SR1"], ["name", "strawberries"], ["price", "5.0"], ["created_at", "2025-06-28 17:09:21.381183"], ["updated_at", "2025-06-28 17:09:21.381183"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.6ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 9], ["product_id", 18], ["quantity", 1], ["created_at", "2025-06-28 17:09:21.382536"], ["updated_at", "2025-06-28 17:09:21.382536"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "CF1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.1ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "CF1"], ["name", "coffee"], ["price", "11.23"], ["created_at", "2025-06-28 17:09:21.385383"], ["updated_at", "2025-06-28 17:09:21.385383"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.5ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 9], ["product_id", 19], ["quantity", 1], ["created_at", "2025-06-28 17:09:21.386704"], ["updated_at", "2025-06-28 17:09:21.386704"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1 AND "cart_items"."product_id" = $2 LIMIT $3[0m  [["cart_id", 9], ["product_id", 18], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Update (0.6ms)[0m  [1m[33mUPDATE "cart_items" SET "quantity" = $1, "updated_at" = $2 WHERE "cart_items"."id" = $3[0m  [["quantity", 3], ["updated_at", "2025-06-28 17:09:21.389320"], ["id", 14]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.1ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1 AND "cart_items"."product_id" = $2 LIMIT $3[0m  [["cart_id", 9], ["product_id", 19], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Update (0.6ms)[0m  [1m[33mUPDATE "cart_items" SET "quantity" = $1, "updated_at" = $2 WHERE "cart_items"."id" = $3[0m  [["quantity", 3], ["updated_at", "2025-06-28 17:09:21.391736"], ["id", 15]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.1ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1[0m  [["cart_id", 9]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" IN ($1, $2, $3)[0m  [["id", 17], ["id", 18], ["id", 19]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public[0m
+  [1m[35m (414.6ms)[0m  [1m[35mDROP DATABASE IF EXISTS "ota_test"[0m
+  [1m[35m (32.9ms)[0m  [1m[35mCREATE DATABASE "ota_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (11.2ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql" SCHEMA pg_catalog[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "cart_items" CASCADE[0m
+  [1m[35m (6.8ms)[0m  [1m[35mCREATE TABLE "cart_items" ("id" bigserial primary key, "cart_id" bigint NOT NULL, "product_id" bigint NOT NULL, "quantity" integer DEFAULT 0 NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (5.6ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_cart_id" ON "cart_items" ("cart_id")[0m
+  [1m[35m (8.7ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_product_id" ON "cart_items" ("product_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "carts" CASCADE[0m
+  [1m[35m (8.9ms)[0m  [1m[35mCREATE TABLE "carts" ("id" bigserial primary key, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "products" CASCADE[0m
+  [1m[35m (14.4ms)[0m  [1m[35mCREATE TABLE "products" ("id" bigserial primary key, "code" character varying NOT NULL, "name" character varying NOT NULL, "price" decimal(8,2) NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (9.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_products_on_code" ON "products" ("code")[0m
+  [1m[35m (3.5ms)[0m  [1m[35mALTER TABLE "cart_items" ADD CONSTRAINT "fk_rails_6cdb1f0139"
+FOREIGN KEY ("cart_id")
+  REFERENCES "carts" ("id")
+[0m
+  [1m[35m (3.6ms)[0m  [1m[35mALTER TABLE "cart_items" ADD CONSTRAINT "fk_rails_681a180e84"
+FOREIGN KEY ("product_id")
+  REFERENCES "products" ("id")
+[0m
+  [1m[35m (16.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (2.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20250628154307)[0m
+  [1m[35m (3.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20250628154251),
+(20250628154245);[0m
+  [1m[35m (14.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (3.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'test', '2025-06-30 11:13:45.715385', '2025-06-30 11:13:45.715388') RETURNING "key"[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::InternalMetadata Create (2.8ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', 'a61de45d37fc7cbabc48d6f0fcf4f7b133418b57', '2025-06-30 11:13:45.722949', '2025-06-30 11:13:45.722951') RETURNING "key"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (1.1ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-30 11:13:46.632767"], ["updated_at", "2025-06-30 11:13:46.632767"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-30 11:13:46.687919"], ["updated_at", "2025-06-30 11:13:46.687919"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (1.0ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-30 11:13:47.081684"], ["updated_at", "2025-06-30 11:13:47.081684"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-30 11:13:47.085744"], ["updated_at", "2025-06-30 11:13:47.085744"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.7ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-30 11:13:47.089643"], ["updated_at", "2025-06-30 11:13:47.089643"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-30 11:13:47.093359"], ["updated_at", "2025-06-30 11:13:47.093359"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (1.1ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-30 11:13:47.098046"], ["updated_at", "2025-06-30 11:13:47.098046"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-30 11:13:47.102930"], ["updated_at", "2025-06-30 11:13:47.102930"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.9ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-30 11:13:47.107923"], ["updated_at", "2025-06-30 11:13:47.107923"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-30 11:13:47.240041"], ["updated_at", "2025-06-30 11:13:47.240041"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (1.5ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 5], ["product_id", 5], ["quantity", 2], ["created_at", "2025-06-30 11:13:47.270457"], ["updated_at", "2025-06-30 11:13:47.270457"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "SR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "SR1"], ["name", "strawberries"], ["price", "5.0"], ["created_at", "2025-06-30 11:13:47.275838"], ["updated_at", "2025-06-30 11:13:47.275838"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (1.4ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 5], ["product_id", 6], ["quantity", 1], ["created_at", "2025-06-30 11:13:47.278779"], ["updated_at", "2025-06-30 11:13:47.278779"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "CF1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "CF1"], ["name", "coffee"], ["price", "11.23"], ["created_at", "2025-06-30 11:13:47.283892"], ["updated_at", "2025-06-30 11:13:47.283892"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (1.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 5], ["product_id", 7], ["quantity", 1], ["created_at", "2025-06-30 11:13:47.286838"], ["updated_at", "2025-06-30 11:13:47.286838"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.6ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1[0m  [["cart_id", 5]]
+  [1m[36mProduct Load (0.5ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" IN ($1, $2, $3)[0m  [["id", 5], ["id", 6], ["id", 7]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.7ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-30 11:13:47.419577"], ["updated_at", "2025-06-30 11:13:47.419577"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-30 11:13:47.423332"], ["updated_at", "2025-06-30 11:13:47.423332"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.9ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 6], ["product_id", 8], ["quantity", 2], ["created_at", "2025-06-30 11:13:47.425277"], ["updated_at", "2025-06-30 11:13:47.425277"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "SR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "SR1"], ["name", "strawberries"], ["price", "5.0"], ["created_at", "2025-06-30 11:13:47.430759"], ["updated_at", "2025-06-30 11:13:47.430759"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.9ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 6], ["product_id", 9], ["quantity", 1], ["created_at", "2025-06-30 11:13:47.433325"], ["updated_at", "2025-06-30 11:13:47.433325"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "CF1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "CF1"], ["name", "coffee"], ["price", "11.23"], ["created_at", "2025-06-30 11:13:47.437171"], ["updated_at", "2025-06-30 11:13:47.437171"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (1.0ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 6], ["product_id", 10], ["quantity", 1], ["created_at", "2025-06-30 11:13:47.439101"], ["updated_at", "2025-06-30 11:13:47.439101"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.4ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1[0m  [["cart_id", 6]]
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" IN ($1, $2, $3)[0m  [["id", 8], ["id", 9], ["id", 10]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (0.9ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-30 11:13:47.514496"], ["updated_at", "2025-06-30 11:13:47.514496"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-30 11:13:47.518760"], ["updated_at", "2025-06-30 11:13:47.518760"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.9ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 7], ["product_id", 11], ["quantity", 2], ["created_at", "2025-06-30 11:13:47.520776"], ["updated_at", "2025-06-30 11:13:47.520776"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "SR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "SR1"], ["name", "strawberries"], ["price", "5.0"], ["created_at", "2025-06-30 11:13:47.524562"], ["updated_at", "2025-06-30 11:13:47.524562"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (1.1ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 7], ["product_id", 12], ["quantity", 1], ["created_at", "2025-06-30 11:13:47.526814"], ["updated_at", "2025-06-30 11:13:47.526814"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "CF1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "CF1"], ["name", "coffee"], ["price", "11.23"], ["created_at", "2025-06-30 11:13:47.531444"], ["updated_at", "2025-06-30 11:13:47.531444"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (1.0ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 7], ["product_id", 13], ["quantity", 1], ["created_at", "2025-06-30 11:13:47.533720"], ["updated_at", "2025-06-30 11:13:47.533720"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.3ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1 AND "cart_items"."product_id" = $2 LIMIT $3[0m  [["cart_id", 7], ["product_id", 12], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Update (1.0ms)[0m  [1m[33mUPDATE "cart_items" SET "quantity" = $1, "updated_at" = $2 WHERE "cart_items"."id" = $3[0m  [["quantity", 3], ["updated_at", "2025-06-30 11:13:47.537660"], ["id", 8]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1[0m  [["cart_id", 7]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" IN ($1, $2, $3)[0m  [["id", 11], ["id", 12], ["id", 13]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (1.1ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-30 11:13:47.544584"], ["updated_at", "2025-06-30 11:13:47.544584"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-30 11:13:47.563886"], ["updated_at", "2025-06-30 11:13:47.563886"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (1.4ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 8], ["product_id", 14], ["quantity", 2], ["created_at", "2025-06-30 11:13:47.566243"], ["updated_at", "2025-06-30 11:13:47.566243"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "SR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "SR1"], ["name", "strawberries"], ["price", "5.0"], ["created_at", "2025-06-30 11:13:47.571007"], ["updated_at", "2025-06-30 11:13:47.571007"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.9ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 8], ["product_id", 15], ["quantity", 1], ["created_at", "2025-06-30 11:13:47.573298"], ["updated_at", "2025-06-30 11:13:47.573298"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "CF1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "CF1"], ["name", "coffee"], ["price", "11.23"], ["created_at", "2025-06-30 11:13:47.577288"], ["updated_at", "2025-06-30 11:13:47.577288"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (1.6ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 8], ["product_id", 16], ["quantity", 1], ["created_at", "2025-06-30 11:13:47.579204"], ["updated_at", "2025-06-30 11:13:47.579204"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.3ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1 AND "cart_items"."product_id" = $2 LIMIT $3[0m  [["cart_id", 8], ["product_id", 16], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Update (1.0ms)[0m  [1m[33mUPDATE "cart_items" SET "quantity" = $1, "updated_at" = $2 WHERE "cart_items"."id" = $3[0m  [["quantity", 3], ["updated_at", "2025-06-30 11:13:47.584948"], ["id", 12]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1[0m  [["cart_id", 8]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" IN ($1, $2, $3)[0m  [["id", 14], ["id", 15], ["id", 16]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCart Create (1.2ms)[0m  [1m[32mINSERT INTO "carts" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2025-06-30 11:13:47.592301"], ["updated_at", "2025-06-30 11:13:47.592301"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "GR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "GR1"], ["name", "green tea"], ["price", "3.11"], ["created_at", "2025-06-30 11:13:47.596917"], ["updated_at", "2025-06-30 11:13:47.596917"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (1.0ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 9], ["product_id", 17], ["quantity", 2], ["created_at", "2025-06-30 11:13:47.599209"], ["updated_at", "2025-06-30 11:13:47.599209"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "SR1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "SR1"], ["name", "strawberries"], ["price", "5.0"], ["created_at", "2025-06-30 11:13:47.603577"], ["updated_at", "2025-06-30 11:13:47.603577"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (1.7ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 9], ["product_id", 18], ["quantity", 1], ["created_at", "2025-06-30 11:13:47.606990"], ["updated_at", "2025-06-30 11:13:47.606990"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."code" = $1 LIMIT $2[0m  [["code", "CF1"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("code", "name", "price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "CF1"], ["name", "coffee"], ["price", "11.23"], ["created_at", "2025-06-30 11:13:47.612003"], ["updated_at", "2025-06-30 11:13:47.612003"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Create (0.8ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "product_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["cart_id", 9], ["product_id", 19], ["quantity", 1], ["created_at", "2025-06-30 11:13:47.614204"], ["updated_at", "2025-06-30 11:13:47.614204"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1 AND "cart_items"."product_id" = $2 LIMIT $3[0m  [["cart_id", 9], ["product_id", 18], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Update (0.8ms)[0m  [1m[33mUPDATE "cart_items" SET "quantity" = $1, "updated_at" = $2 WHERE "cart_items"."id" = $3[0m  [["quantity", 3], ["updated_at", "2025-06-30 11:13:47.617974"], ["id", 14]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.3ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1 AND "cart_items"."product_id" = $2 LIMIT $3[0m  [["cart_id", 9], ["product_id", 19], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCartItem Update (1.1ms)[0m  [1m[33mUPDATE "cart_items" SET "quantity" = $1, "updated_at" = $2 WHERE "cart_items"."id" = $3[0m  [["quantity", 3], ["updated_at", "2025-06-30 11:13:47.621849"], ["id", 15]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = $1[0m  [["cart_id", 9]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" IN ($1, $2, $3)[0m  [["id", 17], ["id", 18], ["id", 19]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
